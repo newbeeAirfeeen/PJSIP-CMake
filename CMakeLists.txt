@@ -1,13 +1,31 @@
 cmake_minimum_required(VERSION 2.8.8)
 
 project(pjproject)
-
 ################################################################################
 # build options
 ################################################################################
 
 # miscs
 set(CMAKE_VERBOSE_MAKEFILE ON)
+
+add_definitions(-DPJ_IS_LITTLE_ENDIAN=1
+                -DPJ_IS_BIG_ENDIAN=0
+                -DPJ_M_NAME="aarch64")
+
+include(CheckIncludeFile)
+check_include_file(unistd.h HAVE_UNISTD_H)
+if(HAVE_UNISTD_H)
+  add_definitions(-DHAVE_UNISTD_H)
+endif()
+
+
+find_package(OpenSSL REQUIRED)
+if(OPENSSL_FOUND)
+  include_directories(${OPENSSL_INCLUDE_DIR})
+  list(APPEND LINK_LIB_LIST ${OPENSSL_LIBRARIES})
+  add_definitions(-DHAVE_OPENSSL)
+endif()
+
 
 # targeted OS
 set(TARGET_LINUX    OFF CACHE BOOL "target OS is Linux")
@@ -20,7 +38,7 @@ set(TARGET_WINDOWS  OFF CACHE BOOL "target OS is Windows")
 set(PJSIP_STATIC_BUILD          OFF CACHE BOOL "enable static build")
 
 # features
-set(WITH_SRTP                   ON  CACHE BOOL "enable SRTP")
+set(WITH_SRTP                   OFF  CACHE BOOL "enable SRTP")
 set(WITH_SSL                    ON  CACHE BOOL "enable SSL")
 set(WITH_BUILTIN_OPENSSL        OFF CACHE BOOL "enable built-in OpenSSL")
 
@@ -33,14 +51,14 @@ set(WITH_AUDIODEV_WMME          OFF CACHE BOOL "enable WMME audio device")
 set(WITH_RESAMPLE_LIBRESAMPLE   OFF CACHE BOOL "enable libresample ressampling")
 set(WITH_RESAMPLE_LIBSAMPLERATE OFF CACHE BOOL "enable libsamplerate ressampling")# TODO: test ON
 
-set(WITH_UUID_LIB               ON  CACHE BOOL "enable libUUID for callId generation")
+set(WITH_UUID_LIB               OFF  CACHE BOOL "enable libUUID for callId generation")
 
 set(WITH_PASSTHROUGH_CODECS     OFF CACHE BOOL "enable passthrough codecs")
 set(WITH_CODEC_SPEEX            OFF CACHE BOOL "enable speex codec")
 set(WITH_CODEC_ILBC             OFF CACHE BOOL "enable ilbc codec")
 set(WITH_CODEC_IPP              OFF CACHE BOOL "enable ipp codecs")               # TODO: test ON
 set(WITH_CODEC_GSM              OFF CACHE BOOL "enable gsm codec")
-set(WITH_CODEC_G722             ON  CACHE BOOL "enable g722 codec")
+set(WITH_CODEC_G722             OFF  CACHE BOOL "enable g722 codec")
 set(WITH_CODEC_G7221            OFF CACHE BOOL "enable g7221 codec")
 set(WITH_CODEC_L16              OFF CACHE BOOL "enable l16 codec")
 set(WITH_CODEC_AMRNB            OFF CACHE BOOL "enable amr narrowband codec")

@@ -37,7 +37,8 @@
  * gcc-wall wall mode
  */
 #define _SVID_SOURCE
-
+#include <stdlib.h>
+#include <time.h>
 #include <stdio.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -113,7 +114,8 @@ static int get_random_fd(void)
 			if (i >= 0) 
 				fcntl(fd, F_SETFD, i | FD_CLOEXEC);
 		}
-		srand((getpid() << 16) ^ getuid() ^ tv.tv_sec ^ tv.tv_usec);
+		//srand((getpid() << 16) ^ getuid() ^ tv.tv_sec ^ tv.tv_usec);
+                srand(time(NULL));
 #ifdef DO_JRAND_MIX
 		jrand_seed[0] = getpid() ^ (tv.tv_sec & 0xFFFF);
 		jrand_seed[1] = getppid() ^ (tv.tv_usec & 0xFFFF);
