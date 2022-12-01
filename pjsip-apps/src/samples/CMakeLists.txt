@@ -1,2 +1,5 @@
 add_executable(ice_demo icedemo.c)
 target_link_libraries(ice_demo nat pjlib-util-standard-alone pjlib-standard-alone)
+if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+    target_link_libraries(ice_demo -lpthread)
+endif()

@@ -25,10 +25,10 @@
  * @brief STUN endpoint.
  */
 
-#include <pjnath/stun_msg.h>
 #include <pj/assert.h>
 #include <pj/errno.h>
 #include <pj/string.h>
+#include <pjnath/stun_msg.h>
 
 
 PJ_BEGIN_DECL
@@ -45,33 +45,32 @@ PJ_BEGIN_DECL
 /**
  * STUN configuration.
  */
-typedef struct pj_stun_config
-{
+typedef struct pj_stun_config {
     /**
      * Pool factory to be used.
      */
-    pj_pool_factory	*pf;
+    pj_pool_factory *pf;
 
     /**
      * Ioqueue.
      */
-    pj_ioqueue_t	*ioqueue;
+    pj_ioqueue_t *ioqueue;
 
     /**
      * Timer heap instance.
      */
-    pj_timer_heap_t	*timer_heap;
+    pj_timer_heap_t *timer_heap;
 
     /**
      * Options.
      */
-    unsigned		 options;
+    unsigned options;
 
     /**
      * The default initial STUN round-trip time estimation in msecs.
      * The value normally is PJ_STUN_RTO_VALUE.
      */
-    unsigned		 rto_msec;
+    unsigned rto_msec;
 
     /**
      * The interval to cache outgoing  STUN response in the STUN session,
@@ -79,28 +78,27 @@ typedef struct pj_stun_config
      *
      * Default 10000 (10 seconds).
      */
-    unsigned		 res_cache_msec;
+    unsigned res_cache_msec;
 
     /**
      * Software name to be included in all STUN requests and responses.
      *
      * Default: PJNATH_STUN_SOFTWARE_NAME.
      */
-    pj_str_t		 software_name;
+    pj_str_t software_name;
 
 } pj_stun_config;
-
 
 
 /**
  * Initialize STUN config.
  */
-PJ_INLINE(void) pj_stun_config_init(pj_stun_config *cfg,
-				    pj_pool_factory *factory,
-				    unsigned options,
-				    pj_ioqueue_t *ioqueue,
-				    pj_timer_heap_t *timer_heap)
-{
+PJ_INLINE(void)
+pj_stun_config_init(pj_stun_config *cfg,
+                    pj_pool_factory *factory,
+                    unsigned options,
+                    pj_ioqueue_t *ioqueue,
+                    pj_timer_heap_t *timer_heap) {
     pj_bzero(cfg, sizeof(*cfg));
 
     cfg->pf = factory;
@@ -109,17 +107,18 @@ PJ_INLINE(void) pj_stun_config_init(pj_stun_config *cfg,
     cfg->timer_heap = timer_heap;
     cfg->rto_msec = PJ_STUN_RTO_VALUE;
     cfg->res_cache_msec = PJ_STUN_RES_CACHE_DURATION;
-    cfg->software_name = pj_str((char*)PJNATH_STUN_SOFTWARE_NAME);
+    cfg->software_name = pj_str((char *) PJNATH_STUN_SOFTWARE_NAME);
 }
 
 
 /**
  * Check that STUN config is valid.
  */
-PJ_INLINE(pj_status_t) pj_stun_config_check_valid(const pj_stun_config *cfg)
-{
+PJ_INLINE(pj_status_t)
+pj_stun_config_check_valid(const pj_stun_config *cfg) {
     PJ_ASSERT_RETURN(cfg->ioqueue && cfg->pf && cfg->timer_heap &&
-		     cfg->rto_msec && cfg->res_cache_msec, PJ_EINVAL);
+                             cfg->rto_msec && cfg->res_cache_msec,
+                     PJ_EINVAL);
     return PJ_SUCCESS;
 }
 
@@ -132,5 +131,4 @@ PJ_INLINE(pj_status_t) pj_stun_config_check_valid(const pj_stun_config *cfg)
 PJ_END_DECL
 
 
-#endif	/* __PJNATH_STUN_CONFIG_H__ */
-
+#endif /* __PJNATH_STUN_CONFIG_H__ */

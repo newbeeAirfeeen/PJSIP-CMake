@@ -75,7 +75,7 @@ else()
   set(PJLIB_SRC ${PJLIB_SRC} ../src/pj/guid_simple.c)
 endif()
 
-if(TARGET_LINUX OR TARGET_MACOSX OR TARGET_ANDROID OR TARGET_IOS OR APPLE)
+if(TARGET_LINUX OR TARGET_MACOSX OR TARGET_ANDROID OR TARGET_IOS OR APPLE OR LINUX OR CMAKE_SYSTEM_NAME MATCHES "Linux")
   set(PJLIB_SRC ${PJLIB_SRC}
     ../src/pj/addr_resolv_sock.c
     ../src/pj/file_access_unistd.c
