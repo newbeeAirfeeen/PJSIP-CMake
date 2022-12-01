@@ -75,7 +75,7 @@ else()
   set(PJLIB_SRC ${PJLIB_SRC} ../src/pj/guid_simple.c)
 endif()
 
-if(TARGET_LINUX OR TARGET_MACOSX OR TARGET_ANDROID OR TARGET_IOS)
+if(TARGET_LINUX OR TARGET_MACOSX OR TARGET_ANDROID OR TARGET_IOS OR APPLE)
   set(PJLIB_SRC ${PJLIB_SRC}
     ../src/pj/addr_resolv_sock.c
     ../src/pj/file_access_unistd.c
@@ -125,3 +125,4 @@ endif()
 
 add_library(pjlib OBJECT ${PJLIB_SRC} ${PJLIB_INC})
 add_library(pjlib-standard-alone STATIC ${PJLIB_SRC} ${PJLIB_INC})
+target_include_directories(pjlib-standard-alone PUBLIC ${PROJECT_SOURCE_DIR}/pjlib/include)

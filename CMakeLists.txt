@@ -5,6 +5,9 @@ project(pjproject)
 # build options
 ################################################################################
 
+option(ENABLE_EXAMPLE "enable example" ON)
+
+
 # miscs
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -12,10 +15,17 @@ add_definitions(-DPJ_IS_LITTLE_ENDIAN=1
                 -DPJ_IS_BIG_ENDIAN=0
                 -DPJ_M_NAME="aarch64")
 
+
+
+
 include(CheckIncludeFile)
 check_include_file(unistd.h HAVE_UNISTD_H)
 if(HAVE_UNISTD_H)
   add_definitions(-DHAVE_UNISTD_H)
+endif()
+check_include_file(semaphore.h PJ_HAS_SEMAPHORE_H)
+if(PJ_HAS_SEMAPHORE_H)
+  add_definitions(-DPJ_HAS_SEMAPHORE_H)
 endif()
 
 

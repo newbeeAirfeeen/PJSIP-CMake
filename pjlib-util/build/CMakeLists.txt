@@ -50,3 +50,4 @@ set(PJLIB-UTIL_INC
 
 add_library(pjlib-util OBJECT ${PJLIB-UTIL_SRC} ${PJLIB-UTIL_INC})
 add_library(pjlib-util-standard-alone STATIC ${PJLIB-UTIL_SRC} ${PJLIB-UTIL_INC})
+target_include_directories(pjlib-util-standard-alone PUBLIC ${PROJECT_SOURCE_DIR}/pjlib-util/include)
