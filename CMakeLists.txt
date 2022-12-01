@@ -6,7 +6,7 @@ project(pjproject)
 ################################################################################
 
 option(ENABLE_EXAMPLE "enable example" ON)
-
+option(ENABLE_APP "enable app" ON)
 
 # miscs
 set(CMAKE_VERBOSE_MAKEFILE ON)
@@ -373,4 +373,8 @@ if(BUILD_PJSUA-APP)
     pjsip-apps/src/pjsua/main.c)
   add_executable(pjsua ${PJSUA-APP_SRC})
   target_link_libraries(pjsua ${PROJECT_NAME})
+endif()
+
+if(ENABLE_APP)
+  add_subdirectory(pjsip-apps/src/samples)
 endif()
