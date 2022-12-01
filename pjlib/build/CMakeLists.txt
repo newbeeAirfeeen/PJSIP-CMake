@@ -124,3 +124,4 @@ if(TARGET_WINDOWS)
 endif()
 
 add_library(pjlib OBJECT ${PJLIB_SRC} ${PJLIB_INC})
+add_library(pjlib-standard-alone STATIC ${PJLIB_SRC} ${PJLIB_INC})

@@ -49,3 +49,4 @@ set(PJLIB-UTIL_INC
   ../include/pjlib-util/xml.h)
 
 add_library(pjlib-util OBJECT ${PJLIB-UTIL_SRC} ${PJLIB-UTIL_INC})
+add_library(pjlib-util-standard-alone STATIC ${PJLIB-UTIL_SRC} ${PJLIB-UTIL_INC})
