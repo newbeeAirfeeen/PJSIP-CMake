@@ -8,6 +8,19 @@ project(pjproject)
 option(ENABLE_EXAMPLE "enable example" ON)
 option(ENABLE_APP "enable app" ON)
 
+
+set(XRADIO_PREFIX_PATH /home/shenhao/xradiotech-xr872)
+list(APPEND EXTERNAL_INCLUDE_DIRS
+        ${CMAKE_SOURCE_DIR}/platform/xr872
+        ${XRADIO_PREFIX_PATH}/include/net/lwip-2.0.3/posix
+        ${XRADIO_PREFIX_PATH}/include/net/lwip-2.0.3
+        ${XRADIO_PREFIX_PATH}/include/net/mbedtls-2.16.0
+        ${XRADIO_PREFIX_PATH}/include
+        ${XRADIO_PREFIX_PATH}/include/cedarx/os_glue/include
+        ${XRADIO_PREFIX_PATH}/include/libc)
+include_directories(${EXTERNAL_INCLUDE_DIRS})
+
+
 # miscs
 set(CMAKE_VERBOSE_MAKEFILE ON)
 

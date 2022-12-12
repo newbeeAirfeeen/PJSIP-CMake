@@ -17,29 +17,29 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
-#include <pj/os.h>
 #include <pj/compat/time.h>
 #include <pj/errno.h>
-
+#include <pj/os.h>
+#include <sys/time.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 
-#if !defined(PJ_WIN32) || PJ_WIN32==0
+#if !defined(PJ_WIN32) || PJ_WIN32 == 0
 
-PJ_DEF(pj_status_t) pj_time_decode(const pj_time_val *tv, pj_parsed_time *pt)
-{
+PJ_DEF(pj_status_t)
+pj_time_decode(const pj_time_val *tv, pj_parsed_time *pt) {
     struct tm local_time;
 
     PJ_CHECK_STACK();
 
 #if defined(PJ_HAS_LOCALTIME_R) && PJ_HAS_LOCALTIME_R != 0
-    localtime_r((time_t*)&tv->sec, &local_time);
+    localtime_r((time_t *) &tv->sec, &local_time);
 #else
     /* localtime() is NOT thread-safe. */
-    local_time = *localtime((time_t*)&tv->sec);
+    local_time = *localtime((time_t *) &tv->sec);
 #endif
 
-    pt->year = local_time.tm_year+1900;
+    pt->year = local_time.tm_year + 1900;
     pt->mon = local_time.tm_mon;
     pt->day = local_time.tm_mday;
     pt->hour = local_time.tm_hour;
@@ -54,18 +54,18 @@ PJ_DEF(pj_status_t) pj_time_decode(const pj_time_val *tv, pj_parsed_time *pt)
 /**
  * Encode parsed time to time value.
  */
-PJ_DEF(pj_status_t) pj_time_encode(const pj_parsed_time *pt, pj_time_val *tv)
-{
+PJ_DEF(pj_status_t)
+pj_time_encode(const pj_parsed_time *pt, pj_time_val *tv) {
     struct tm local_time;
 
-    local_time.tm_year = pt->year-1900;
+    local_time.tm_year = pt->year - 1900;
     local_time.tm_mon = pt->mon;
     local_time.tm_mday = pt->day;
     local_time.tm_hour = pt->hour;
     local_time.tm_min = pt->min;
     local_time.tm_sec = pt->sec;
     local_time.tm_isdst = 0;
-    
+
     tv->sec = mktime(&local_time);
     tv->msec = pt->msec;
 
@@ -78,8 +78,8 @@ PJ_DEF(pj_status_t) pj_time_encode(const pj_parsed_time *pt, pj_time_val *tv)
 /**
  * Convert local time to GMT.
  */
-PJ_DEF(pj_status_t) pj_time_local_to_gmt(pj_time_val *tv)
-{
+PJ_DEF(pj_status_t)
+pj_time_local_to_gmt(pj_time_val *tv) {
     PJ_UNUSED_ARG(tv);
     return PJ_EBUG;
 }
@@ -87,10 +87,8 @@ PJ_DEF(pj_status_t) pj_time_local_to_gmt(pj_time_val *tv)
 /**
  * Convert GMT to local time.
  */
-PJ_DEF(pj_status_t) pj_time_gmt_to_local(pj_time_val *tv)
-{
+PJ_DEF(pj_status_t)
+pj_time_gmt_to_local(pj_time_val *tv) {
     PJ_UNUSED_ARG(tv);
     return PJ_EBUG;
 }
-
-

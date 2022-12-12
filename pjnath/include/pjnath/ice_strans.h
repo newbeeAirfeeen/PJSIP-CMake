@@ -576,8 +576,7 @@ pj_ice_strans_cfg_copy(pj_pool_t *pool,
  * @return		PJ_SUCCESS if ICE stream transport is created
  *			successfully.
  */
-PJ_DECL(pj_status_t)
-pj_ice_strans_create(const char *name,
+PJ_DECL(pj_status_t) pj_ice_strans_create(const char *name,
                      const pj_ice_strans_cfg *cfg,
                      unsigned comp_cnt,
                      void *user_data,

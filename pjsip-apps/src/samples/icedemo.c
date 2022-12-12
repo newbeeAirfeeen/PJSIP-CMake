@@ -330,6 +330,10 @@ static pj_status_t icedemo_init(void) {
         icedemo.ice_cfg.opt.aggressive = PJ_TRUE;
 
     /* Configure STUN/srflx candidate resolution */
+    icedemo.opt.stun_srv.ptr = "139.159.209.247:5000";
+    icedemo.opt.stun_srv.slen = 20;
+    //icedemo.opt.turn_srv.ptr = "139.159.209.247:5000";
+    //icedemo.opt.turn_srv.slen = 20;
     if (icedemo.opt.stun_srv.slen) {
         char *pos;
 

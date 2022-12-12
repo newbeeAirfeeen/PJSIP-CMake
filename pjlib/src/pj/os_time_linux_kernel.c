@@ -17,15 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
-#include <pj/os.h>
 #include <linux/time.h>
+#include <pj/os.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 
-PJ_DEF(pj_status_t) pj_gettimeofday(pj_time_val *tv)
-{
+PJ_DEF(pj_status_t)
+pj_gettimeofday(pj_time_val *tv) {
     struct timeval tval;
-  
+
     do_gettimeofday(&tval);
     tv->sec = tval.tv_sec;
     tv->msec = tval.tv_usec / 1000;
@@ -33,8 +33,8 @@ PJ_DEF(pj_status_t) pj_gettimeofday(pj_time_val *tv)
     return 0;
 }
 
-PJ_DEF(pj_status_t) pj_time_decode(const pj_time_val *tv, pj_parsed_time *pt)
-{
+PJ_DEF(pj_status_t)
+pj_time_decode(const pj_time_val *tv, pj_parsed_time *pt) {
     pt->year = 2005;
     pt->mon = 8;
     pt->day = 20;
@@ -51,16 +51,17 @@ PJ_DEF(pj_status_t) pj_time_decode(const pj_time_val *tv, pj_parsed_time *pt)
 /**
  * Encode parsed time to time value.
  */
-PJ_DEF(pj_status_t) pj_time_encode(const pj_parsed_time *pt, pj_time_val *tv);
+PJ_DEF(pj_status_t)
+pj_time_encode(const pj_parsed_time *pt, pj_time_val *tv);
 
 /**
  * Convert local time to GMT.
  */
-PJ_DEF(pj_status_t) pj_time_local_to_gmt(pj_time_val *tv);
+PJ_DEF(pj_status_t)
+pj_time_local_to_gmt(pj_time_val *tv);
 
 /**
  * Convert GMT to local time.
  */
-PJ_DEF(pj_status_t) pj_time_gmt_to_local(pj_time_val *tv);
-
-
+PJ_DEF(pj_status_t)
+pj_time_gmt_to_local(pj_time_val *tv);
