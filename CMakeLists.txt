@@ -42,13 +42,6 @@ if(PJ_HAS_SEMAPHORE_H)
 endif()
 
 
-find_package(OpenSSL REQUIRED)
-if(OPENSSL_FOUND)
-  include_directories(${OPENSSL_INCLUDE_DIR})
-  list(APPEND LINK_LIB_LIST ${OPENSSL_LIBRARIES})
-  add_definitions(-DHAVE_OPENSSL)
-endif()
-
 
 # targeted OS
 set(TARGET_LINUX    OFF CACHE BOOL "target OS is Linux")
